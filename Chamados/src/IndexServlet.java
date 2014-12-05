@@ -15,7 +15,7 @@ public class IndexServlet extends HttpServlet {
 			PrintWriter out = rep.getWriter();
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Sistema de Chamados</title>");
+			out.println("<title>Sistema de Chamadoss</title>");
 			out.println("</head>");
 			out.println("<h1>Sistema de Chamados</h1>");
 			out.println("<hr/>");
