@@ -18,6 +18,12 @@ public class IndexServlet extends HttpServlet {
 			out.println("<title>Sistema de Chamados</title>");
 			out.println("</head>");
 			out.println("<h1>Sistema de Chamados</h1>");
+			out.println("<hr/>");
+			out.println("<a href='/NovoChamado'>Novo Chamado</a>");
+			out.println("<br/>");
+			out.println("<a href='/ListarChamados'>Listar Chamados</a>");
+			out.println("<br/>");
+			out.println("<a href='/logoff'>Sair</a>");
 			out.println("<body>");
 			out.println("</body>");
 			out.println("</html>");
