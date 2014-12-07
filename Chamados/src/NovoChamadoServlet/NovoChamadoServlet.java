@@ -2,13 +2,16 @@ package NovoChamadoServlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sun.security.util.Length;
+import com.mysql.jdbc.Connection;
 
 public class NovoChamadoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -54,6 +57,30 @@ public class NovoChamadoServlet extends HttpServlet {
 		} else {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
+				
+				String sql = "INSERT INTO chamados (titulo, conteudo) VALUES (?, ?)";
+				
+				try {					
+					Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/chamados_rlsys", "root", "root");
+					
+					PreparedStatement pstm = conn.prepareStatement(sql);
+					
+					pstm.setString(1, titulo);
+					pstm.setString(2, conteudo);
+					
+					pstm.execute();
+					
+					pstm.close();
+					
+					conn.close();
+					
+					response.sendRedirect("http://localhost:8080/Chamados/ListarChamados");
+					
+					out.println("Cadastro realizado com sucesso");
+				} catch (SQLException e) {
+					out.println("Falha ao realizar o cadastro");
+				}
+							
 			} catch (Exception e) {
 				out.println("Falha ao carregar o driver de conexão");
 			}

@@ -27,4 +27,38 @@
     <servlet-name>NovoChamadoServlet</servlet-name>
     <url-pattern>/NovoChamado</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditarChamadoServlet</display-name>
+    <servlet-name>EditarChamadoServlet</servlet-name>
+    <servlet-class>NovoChamadoServlet.EditarChamadoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditarChamadoServlet</servlet-name>
+    <url-pattern>/EditarChamado</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ListarChamados</display-name>
+    <servlet-name>ListarChamados</servlet-name>
+    <servlet-class>NovoChamadoServlet.ListarChamados</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListarChamados</servlet-name>
+    <url-pattern>/ListarChamados</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Login</display-name>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  
+  <session-config>
+  	<session-timeout>60</session-timeout>
+  </session-config>
 </web-app>
