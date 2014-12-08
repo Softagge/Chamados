@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +30,8 @@ public class ListarChamados extends HttpServlet {
 		if(session.getAttribute("login") == null){
 			response.sendRedirect("http://localhost:8080/Chamados/Login");
 		}
-		out.println(session.getAttribute("info"));
+		
+		//out.println(session.getAttribute("info"));
 		out.println("<a href='http://localhost:8080/Chamados/Login?msg=logoff'>Sair</a>");
 		
 		try {
@@ -51,12 +53,16 @@ public class ListarChamados extends HttpServlet {
 				Statement stm = conn.createStatement();
 								
 				ResultSet rs = stm.executeQuery(sql);
-				
-				out.println("<table width='100%'>");
-				
+				out.println("<html>");
+				out.println("<head>");
+				out.println("<title>Sistema de Chamados</title>");
+				out.println("</head>");
+				out.println("</body>");
+				out.println("<table width='100%'>");			
 				out.println("<tr bgcolor='#c0c0c0'>");
 				out.println("<td>ID</td>");
 				out.println("<td>Título</td>");
+				out.println("<td>Data</td>");
 				out.println("<td>Editar</td>");
 				out.println("<td>Excluir</td>");
 				out.println("</tr>");
@@ -65,12 +71,15 @@ public class ListarChamados extends HttpServlet {
 					out.println("<tr>");
 					out.println("<td>" + rs.getInt("id") + "</td>");
 					out.println("<td>" + rs.getString("titulo") + "</td>");
+					out.println("<td>" + rs.getDate("data") + "</td>");
 					out.println("<td><a href='http://localhost:8080/Chamados/EditarChamado?id="+ rs.getInt("id") +"'>[EDITAR]</a></td>");
 					out.println("<td><a href='http://localhost:8080/Chamados/ListarChamados?id="+ rs.getInt("id") +"'>[APAGAR]</a></td>");
 					out.println("</tr>");
 				}			
 				
 				out.println("</table>");
+				out.println("</body>");
+				out.println("</html>");
 				
 				stm.close();
 				

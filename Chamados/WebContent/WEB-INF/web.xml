@@ -57,8 +57,17 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
-  
   <session-config>
-  	<session-timeout>60</session-timeout>
+    <session-timeout>60</session-timeout>
   </session-config>
+  <servlet>
+    <description></description>
+    <display-name>Usuario</display-name>
+    <servlet-name>Usuario</servlet-name>
+    <servlet-class>Usuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Usuario</servlet-name>
+    <url-pattern>/Usuario</url-pattern>
+  </servlet-mapping>
 </web-app>

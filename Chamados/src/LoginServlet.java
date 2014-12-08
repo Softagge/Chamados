@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,19 @@ public class LoginServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		
+		//Apagando cookie
+		/*Cookie[] ck2 = request.getCookies();
+		
+		if(ck2 != null){
+			for(Cookie cookie : ck2){
+				if(cookie.getName().equals("login_name")){
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+				}
+			}
+		}*/
+		
 		PrintWriter out = response.getWriter();		
 		out.println("<html>");
 		out.println("<head>");
@@ -45,8 +58,20 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		
+		//Lendo cookie
+		String login_name = "";
+		Cookie[] ck = request.getCookies();
+		
+		if(ck != null){
+			for(Cookie cookie : ck){
+				if(cookie.getName().equals("login_name")){
+					login_name = cookie.getValue();
+				}
+			}
+		}
+		
 		out.println("<form method='post'>");
-		out.println("Título: <br> <input type='text' name='txtLogin'>");
+		out.println("Título: <br> <input type='text' name='txtLogin' value='"+ login_name +"'>");
 		out.println("<br/>");
 		out.println("Título: <br> <input type='password' name='txtSenha'>");
 		out.println("<br/>");
@@ -69,6 +94,10 @@ public class LoginServlet extends HttpServlet {
 		String login = request.getParameter("txtLogin");
 		String senha = request.getParameter("txtSenha");
 		
+		//Criando cookie
+		Cookie ck = new Cookie("login_name", login);
+		ck.setMaxAge(60*60*24);
+		response.addCookie(ck);
 
 			try {
 				Class.forName("com.mysql.jdbc.Driver");

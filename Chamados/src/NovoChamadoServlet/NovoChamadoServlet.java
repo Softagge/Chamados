@@ -2,6 +2,7 @@ package NovoChamadoServlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ public class NovoChamadoServlet extends HttpServlet {
 		out.println("<head>");
 		out.println("<title>Sistema de Chamados</title>");
 		out.println("</head>");
+		out.println("<body>");
 		out.println("<h1>Preencha as informações do chamado</h1>");
 		out.println("<hr/>");
 		out.println("<form method='post'>");
@@ -36,8 +38,7 @@ public class NovoChamadoServlet extends HttpServlet {
 		out.println("<br/>");
 		out.println("<a href='http://localhost:8080/Chamados/ListarChamados'>Listar Chamados</a>");
 		out.println("<br/>");
-		out.println("<a href='/logoff'>Sair</a>");
-		out.println("<body>");
+		out.println("<a href='/logoff'>Sair</a>");		
 		out.println("</body>");
 		out.println("</html>");
 
@@ -58,15 +59,18 @@ public class NovoChamadoServlet extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				
-				String sql = "INSERT INTO chamados (titulo, conteudo) VALUES (?, ?)";
+				String sql = "INSERT INTO chamados (titulo, conteudo, data) VALUES (?, ?, ?)";
 				
 				try {					
 					Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/chamados_rlsys", "root", "root");
 					
 					PreparedStatement pstm = conn.prepareStatement(sql);
 					
+					Date dateSql = new Date( new java.util.Date().getTime());
+					
 					pstm.setString(1, titulo);
 					pstm.setString(2, conteudo);
+					pstm.setDate(3, dateSql);
 					
 					pstm.execute();
 					
